@@ -24,7 +24,7 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic = "orange apple banana ... ";
+var mnemonic = "mynameisluchetu";
 
 module.exports = {
   /**
@@ -82,6 +82,7 @@ module.exports = {
       network_id: 4,
       gas: 4500000,
       gasPrice: 10000000000,
+     from: "0xb0456ef9B1D78AF43309da6c55f301Bed47A66C8",
   }
   },
 

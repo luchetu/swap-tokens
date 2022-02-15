@@ -49,16 +49,15 @@ export const TransactionProvider = ({ children }) => {
    */
   useEffect(() => {
     if (!currentAccount) return
-    ;(async () => {
-      const userDoc = {
-        _type: 'users',
-        _id: currentAccount,
-        userName: 'Unnamed',
-        address: currentAccount,
-      }
+      ; (async () => {
+        const userDoc = {
+          _type: 'users',
+          _id: currentAccount,
+          userName: 'Unnamed',
+          address: currentAccount,
+        }
 
-      await client.createIfNotExists(userDoc)
-    })()
+      })()
   }, [currentAccount])
 
   const handleChange = (e, name) => {

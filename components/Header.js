@@ -7,6 +7,7 @@ import ethLogo from '../assets/eth.png'
 import balancer from '../assets/balancer.svg'
 import { useContext } from 'react'
 import { TransactionContext } from '../context/TransactionContext'
+import ChainSelect from './forms/ChainSelect'
 //import { client } from '../lib/sanityClient'
 
 const style = {
@@ -31,22 +32,9 @@ const Header = () => {
 
   useEffect(() => {
     if (currentAccount) {
-      ;(async () => {
-        const query = `
-        *[_type=="users" && _id == "${currentAccount}"] {
-          userName,
-        }
-        `
-        const clientRes = await client.fetch(query)
-
-        if (!(clientRes[0].userName == 'Unnamed')) {
-          setUserName(clientRes[0].userName)
-        } else {
-          setUserName(
-            `${currentAccount.slice(0, 7)}...${currentAccount.slice(35)}`,
-          )
-        }
-      })()
+      setUserName(
+        `${currentAccount.slice(0, 7)}...${currentAccount.slice(35)}`,
+      )
     }
   }, [currentAccount])
 
@@ -59,32 +47,23 @@ const Header = () => {
         <div className={style.navItemsContainer}>
           <div
             onClick={() => setSelectedNav('swap')}
-            className={`${style.navItem} ${
-              selectedNav === 'swap' && style.activeNavItem
-            }`}
+            className={`${style.navItem} ${selectedNav === 'swap' && style.activeNavItem
+              }`}
           >
-            Swap
+            Trade
           </div>
-         
-          <a
-            href='https://app.balancer.fi/#/pool/0x5c6ee304399dbdb9c8ef030ab642b10820db8f56000200000000000000000014'
-            target='_blank'
-            rel='noreferrer'
+          <div
+            onClick={() => setSelectedNav('pool')}
+            className={`${style.navItem} ${selectedNav === 'pool' && style.activeNavItem
+              }`}
           >
-            <div className={style.navItem}>
-              Charts <FiArrowUpRight />
-            </div>
-          </a>
+            Invest
+          </div>
         </div>
       </div>
       <div className={style.buttonsContainer}>
         <div className={`${style.button} ${style.buttonPadding}`}>
-          <div className={style.buttonIconContainer}>
-            <Image src={ethLogo} alt='eth logo' height={20} width={20} />
-          </div>
-          <p>Ethereum</p>
-          <div className={style.buttonIconContainer}>
-          </div>
+          <ChainSelect />
         </div>
         {currentAccount ? (
           <div className={`${style.button} ${style.buttonPadding}`}>

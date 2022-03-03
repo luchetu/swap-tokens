@@ -1,8 +1,8 @@
 import ethLogo from '../assets/eth.png'
 import balLogo from '../assets/logo.png'
-import dai from '../assets/dai.png'
-import usdc from '../assets/usdc.png'
-import usdt from '../assets/usdt.png'
+import daiLogo from '../assets/dai.png'
+import usdcLogo from '../assets/usdc.png'
+import usdtLogo from '../assets/usdt.png'
 
 export  const tokens = [
     {
@@ -19,16 +19,16 @@ export  const tokens = [
     {
         id: 3,
         name: 'DAI',
-        avatar: dai
+        avatar: daiLogo
     },
     {
         id: 4,
         name: 'USDC',
-        avatar: usdc
+        avatar: usdcLogo
     },
     {
         id: 5,
         name: 'USDT',
-        avatar: usdt
+        avatar: usdtLogo
     },
 ]

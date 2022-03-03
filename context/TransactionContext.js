@@ -28,10 +28,7 @@ export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const [formData, setFormData] = useState({
-    addressTo: '',
-    amount: '',
-  })
+  const [formData, setFormData] = useState({})
 
   /**
    * Trigger loading modal
@@ -62,13 +59,10 @@ export const TransactionProvider = ({ children }) => {
 
   const handleChange = (e, name) => {
     setFormData(prevState => ({ ...prevState, [name]: e.target.value }))
-  }
 
-  /**
-   * Checks if MetaMask is installed and an account is connected
-   * @param {*} metamask Injected MetaMask code from the browser
-   * @returns
-   */
+  }
+  console.log(formData)
+
   const checkIfWalletIsConnected = async (metamask = eth) => {
     try {
       if (!metamask) return alert('Please install metamask ')

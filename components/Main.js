@@ -1,10 +1,4 @@
-import Image from 'next/image'
-import { RiSettings3Fill } from 'react-icons/ri'
-import { AiOutlineDown } from 'react-icons/ai'
-import ethLogo from '../assets/eth.png'
-import balLogo from '../assets/logo.png'
-import { useContext } from 'react'
-import { TransactionContext } from '../context/TransactionContext'
+
 import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import TransactionLoader from './TransactionLoader'
@@ -43,19 +37,8 @@ const customStyles = {
 }
 
 const Main = () => {
-    const { formData, handleChange, sendTransaction } =
-        useContext(TransactionContext)
     const router = useRouter()
-
-    const handleSubmit = async (e) => {
-        const { addressTo, amount } = formData
-        e.preventDefault()
-
-        if (!addressTo || !amount) return
-
-        sendTransaction()
-    }
-
+  
     return (
         <div className={style.wrapper}>
             <TokenSelect/>

@@ -4,6 +4,9 @@ import { tokens } from '../../config/tokens';
 import { AiOutlineDown, AiOutlineCheck } from 'react-icons/ai'
 import Image from 'next/image'
 import { RiSettings3Fill } from 'react-icons/ri'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { TransactionContext } from '../../context/TransactionContext'
 
 const style = {
   wrapper: `flex justify-center items-center h-screen`,
@@ -21,17 +24,17 @@ const style = {
 
 const customStyles = {
   content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: '#0a0b0d',
-      padding: 0,
-      border: 'none',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#0a0b0d',
+    padding: 0,
+    border: 'none',
   },
   overlay: {
-      backgroundColor: 'rgba(10, 11, 13, 0.75)',
+    backgroundColor: 'rgba(10, 11, 13, 0.75)',
   },
 }
 
@@ -42,6 +45,21 @@ function classNames(...classes) {
 export default function tokenSelect() {
   const [selected, setSelected] = useState(tokens[0])
   const [selectedSwap, setSelectedSwap] = useState(tokens[1])
+
+  const { formData, handleChange, sendTransaction } =
+    useContext(TransactionContext)
+  const router = useRouter()
+
+
+  const handleSubmit = async (e) => {
+    const { addressTo, amount } = formData
+    e.preventDefault()
+
+    if (!addressTo || !amount) return
+
+    sendTransaction()
+  }
+
 
   return (
     <div className={style.content}>
@@ -56,8 +74,9 @@ export default function tokenSelect() {
           type='text'
           className={style.transferPropInput}
           placeholder='0.0'
-          pattern='^[0-9]*[.,]?[0-9]*$'
-          onChange={e => handleChange(e, 'amount')}
+          onChange={e => handleChange(e, selected.name)}
+          name="swapAmount"
+          value={formData.swapAmount}
         />
         <div className={style.currencySelector}>
           <div className={style.currencySelectorContent}>
@@ -83,25 +102,25 @@ export default function tokenSelect() {
                       leaveTo="opacity-0"
                     >
                       <Listbox.Options className="absolute z-10 mt-1 w-full bg-[#191B1F] items-center bg-[#191B1F] rounded-2xl mx-2 text-[0.9rem] font-semibold cursor-pointer">
-                        {tokens.map((person) => (
+                        {tokens.map((token) => (
                           <Listbox.Option
-                            key={person.id}
+                            key={token.id}
                             className={({ active }) =>
                               classNames(
                                 active ? 'text-white bg-indigo-600' : 'text-gray-900',
                                 'cursor-default select-none relative py-2 pl-3 pr-9'
                               )
                             }
-                            value={person}
+                            value={token}
                           >
                             {({ selected, active }) => (
                               <>
                                 <div className="flex items-center">
-                                  <Image src={person.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" height={40} width={40} />
+                                  <Image src={token.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" height={40} width={40} />
                                   <span
                                     className={classNames(selected ? 'font-semibold' : 'font-normal', 'text-white', 'ml-3 block')}
                                   >
-                                    {person.name}
+                                    {token.name}
                                   </span>
                                 </div>
 
@@ -133,7 +152,9 @@ export default function tokenSelect() {
           type='text'
           className={style.transferPropInput}
           placeholder='0.0'
-          pattern='^[0-9]*[.,]?[0-9]*$'
+          name="swapWithAmount"
+          onChange={e => handleChange(e, selectedSwap.name)}
+          value={formData.swapWithAmount}
         />
         <div className={style.currencySelector}>
           <div className={style.currencySelectorContent}>
@@ -159,25 +180,25 @@ export default function tokenSelect() {
                       leaveTo="opacity-0"
                     >
                       <Listbox.Options className="absolute z-10 mt-1 w-full bg-[#191B1F] items-center bg-[#191B1F] rounded-2xl mx-2 text-[0.9rem] font-semibold cursor-pointer">
-                        {tokens.map((person) => (
+                        {tokens.map((token) => (
                           <Listbox.Option
-                            key={person.id}
+                            key={token.id}
                             className={({ active }) =>
                               classNames(
                                 active ? 'text-white bg-indigo-600' : 'text-gray-900',
                                 'cursor-default select-none relative py-2 pl-3 pr-9'
                               )
                             }
-                            value={person}
+                            value={token}
                           >
                             {({ selected, active }) => (
                               <>
                                 <div className="flex items-center">
-                                  <Image src={person.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" height={40} width={40} />
+                                  <Image src={token.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" height={40} width={40} />
                                   <span
                                     className={classNames(selected ? 'font-semibold' : 'font-normal', 'text-white', 'ml-3 block')}
                                   >
-                                    {person.name}
+                                    {token.name}
                                   </span>
                                 </div>
 

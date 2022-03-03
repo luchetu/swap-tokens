@@ -1,32 +1,9 @@
-/**
- * Use this file to configure your truffle project. It's seeded with some
- * common settings for different networks and features like migrations,
- * compilation and testing. Uncomment the ones you need or modify
- * them to suit your project as necessary.
- *
- * More information about configuration can be found at:
- *
- * trufflesuite.com/docs/advanced/configuration
- *
- * To deploy via Infura you'll need a wallet provider (like @truffle/hdwallet-provider)
- * to sign your transactions before they're sent to a remote public node. Infura accounts
- * are available for free at: infura.io/register.
- *
- * You'll also need a mnemonic - the twelve word phrase the wallet uses to generate
- * public/private key pairs. If you're publishing your code to GitHub make sure you load this
- * phrase from a file you've .gitignored so it doesn't accidentally become public.
- *
- */
-
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
-
-var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic = "mynameisluchetu";
+const path = require("path");
+// var HDWalletProvider = require("truffle-hdwallet-provider");
+// var mnemonic = "mynameisluchetu";
 
 module.exports = {
+  contracts_build_directory: path.join(__dirname, "/abis"),
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -38,18 +15,17 @@ module.exports = {
    */
 
   networks: {
-    // Useful for testing. The `development` name is special - truffle uses it by default
-    // if it's defined here and no other network is specified at the command line.
-    // You should run a client (like ganache-cli, geth or parity) in a separate terminal
-    // tab if you use this network and you must also set the `host`, `port` and `network_id`
-    // options below to some value.
-    //
-    development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 8545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
+    mainnet_fork: {
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 8545,            // Standard Ethereum port (default: none)
+      network_id: "999",       // Any network (default: none)
     },
-    
+    development: {
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 8545,            // Standard Ethereum port (default: none)
+      network_id: "*",       // Any network (default: none)
+    },
+
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
@@ -75,15 +51,15 @@ module.exports = {
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
-    rinkeby: {
-      provider: function() { 
-       return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/a874327a14cc410e9bdbdf3d946652ca");
-      },
-      network_id: 4,
-      gas: 4500000,
-      gasPrice: 10000000000,
-     from: "0xb0456ef9B1D78AF43309da6c55f301Bed47A66C8",
-  }
+    //   rinkeby: {
+    //     provider: function () {
+    //       return new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${process.env.INFURA_MAINNET}`);
+    //     },
+    //     network_id: 4,
+    //     gas: 4500000,
+    //     gasPrice: 10000000000,
+    //     from: "0x2deb9b512483af5a4d2c4543644eeb90e642587445a9f86502e007691e8fa314",
+    //   }
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -94,7 +70,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.11",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.6.6",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -117,13 +93,13 @@ module.exports = {
   // $ truffle migrate --reset --compile-all
   //
   // db: {
-    // enabled: false,
-    // host: "127.0.0.1",
-    // adapter: {
-    //   name: "sqlite",
-    //   settings: {
-    //     directory: ".db"
-    //   }
-    // }
+  // enabled: false,
+  // host: "127.0.0.1",
+  // adapter: {
+  //   name: "sqlite",
+  //   settings: {
+  //     directory: ".db"
+  //   }
+  // }
   // }
 };

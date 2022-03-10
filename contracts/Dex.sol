@@ -1,7 +1,7 @@
 
 pragma solidity 0.6.6;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 import '@uniswap/v2-periphery/contracts/UniswapV2Router02.sol';
 
 contract Dex {
@@ -9,10 +9,12 @@ contract Dex {
   address private constant UNISWAP_V2_ROUTER =
     0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
   address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    IUniswapV2Router02 public IUniswapV2Router;
 
-constructor() public payable{
-   uniswapRouter = IUniswapV2Router02(UNISWAP_V2_ROUTER);
-}
+  constructor() public payable {
+    IUniswapV2Router = IUniswapV2Router02(UNISWAP_V2_ROUTER);
+  }
+
   function swap(
     address _tokenIn,
     address _tokenOut,
@@ -35,7 +37,7 @@ constructor() public payable{
       path[2] = _tokenOut;
     }
 
-    IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(
+    IUniswapV2Router.swapExactTokensForTokens(
       _amountIn,
       _amountOutMin,
       path,
@@ -63,7 +65,7 @@ constructor() public payable{
 
     // same length as path
     uint[] memory amountOutMins =
-      IUniswapV2Router(UNISWAP_V2_ROUTER).getAmountsOut(_amountIn, path);
+      IUniswapV2Router.getAmountsOut(_amountIn, path);
 
     return amountOutMins[path.length - 1];
   }

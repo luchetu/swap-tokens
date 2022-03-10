@@ -17,9 +17,7 @@ export const getEstimatedSwapPrice = async (tokenIn, tokenOut) => {
         return amountOutMin;
     }
 }
-
-
-const init = async () => {
+export const swapExactETHForTokens=async ()=>{
     const dai = await Fetcher.fetchTokenData(chainId, tokenAddress);
     const weth = WETH[chainId];
     const pair = await Fetcher.fetchPairData(dai, weth);
@@ -61,4 +59,3 @@ const init = async () => {
     console.log(`Transaction was mined in block ${receipt.blockNumber}`);
 }
 
-init();

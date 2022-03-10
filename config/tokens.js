@@ -4,12 +4,11 @@ import daiLogo from '../assets/dai.png'
 import usdcLogo from '../assets/usdc.png'
 import usdtLogo from '../assets/usdt.png'
 
-export  const tokens = [
+export  const tokensLogo = [
     {
         id: 1,
         name: 'BAL',
-        avatar:
-            balLogo,
+        avatar:balLogo,
     },
     {
         id: 2,

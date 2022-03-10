@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { tokens } from '../../config/tokens';
+import { tokensLogo } from '../../config/tokens';
 import { AiOutlineDown, AiOutlineCheck } from 'react-icons/ai'
 import Image from 'next/image'
 import { RiSettings3Fill } from 'react-icons/ri'
@@ -43,8 +43,8 @@ function classNames(...classes) {
 }
 
 export default function tokenSelect() {
-  const [selected, setSelected] = useState(tokens[0])
-  const [selectedSwap, setSelectedSwap] = useState(tokens[1])
+  const [selected, setSelected] = useState(tokensLogo[0])
+  const [selectedSwap, setSelectedSwap] = useState(tokensLogo[1])
 
   const { formData, handleChange, sendTransaction } =
     useContext(TransactionContext)

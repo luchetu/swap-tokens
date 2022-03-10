@@ -44,6 +44,7 @@ export const TransactionProvider = ({ children }) => {
   /**
    * Create user profile in Sanity
    */
+  console.log(formData);
   useEffect(() => {
     if (!currentAccount) return
       ; (async () => {
